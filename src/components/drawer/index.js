@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.scss';
 
 function Drawer({onClose, onRemove, items = []}) {
     return (
