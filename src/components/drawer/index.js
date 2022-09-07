@@ -1,42 +1,52 @@
 import React from 'react';
 import './style.scss';
+import AppContext from "../contextx";
+
+import btnRemove from '../../assets/btn-remove.svg'
+import arrow from '../../assets/arrow.svg'
+
 
 function Drawer({onClose, onRemove, items = []}) {
+    const {cartItems} = React.useContext(AppContext);
+    const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
+
+
     return (
         <div className="overlay">
             <div className='drawer'>
-                <h2 className='d-flex justify-between  mb-30'>Корзина
-                    <img onClick={onClose} className='removeBtn cu-p' src="/img/btn-remove.svg" alt="Remove"/>
+                <h2 className='drawerLabel'>Корзина
+                    <img onClick={onClose} className='removeBtn' src={btnRemove} alt="Remove"/>
                 </h2>
 
                 <div className="items">
                     {items.map((obj) => (
-                        <div className="cartItem d-flex align-center mb-20">
+                        <div key={obj.id} className="cartItem">
                             <div style={{backgroundImage: `url(${obj.imageUrl})`}} className="cartItemImg"></div>
-                            <div className='mr-20 flex'>
-                                <p className='mb-5'>{obj.title}</p>
-                                <b>{obj.price}</b>
+                            <div className='cartBox'>
+                                <p className='cartBoxTitle'>{obj.title}</p>
+                                <b className='cartBoxPrice'>{obj.price}</b>
                             </div>
-                            <img onClick={() => onRemove(obj.id)} className='removeBtn' src="/img/btn-remove.svg"
+                            <img onClick={() => onRemove(obj.id)} className='removeBtn' src={btnRemove}
                                  alt="Remove"/>
                         </div>
                     ))}
                 </div>
 
                 <div className="cartTotalBlock">
-                    <ul>
-                        <li>
+                    <ul className='cartUl'>
+                        <li className='cartLi'>
                             <span>Итог:</span>
-                            <div></div>
-                            <b>21 498 руб.</b>
+                            <div className='void'></div>
+                            <b>{totalPrice} руб.</b>
                         </li>
-                        <li>
+                        <li className='cartLi'>
                             <span>Налог 5%:</span>
-                            <div></div>
-                            <b>1074 руб.</b>
+                            <div className='void'></div>
+                            <b>{totalPrice * 0.05} руб.</b>
                         </li>
                     </ul>
-                    <button className='greenButton'>Оформить заказ <img src="/img/arrow.svg" alt="Arrow"/></button>
+                    <button className='greenButton'>Оформить заказ <img className='arrow' src={arrow} alt="Arrow"/>
+                    </button>
                 </div>
             </div>
         </div>

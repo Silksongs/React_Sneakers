@@ -1,22 +1,24 @@
 import React from 'react';
 import Card from "../../components/card";
 import './style.scss';
+import AppContext from '../../components/contextx';
 
-function Favorites({items,onAddToFavorite}) {
+function Favorites() {
+    const {favorites, onAddToFavorite,onAddToCart } = React.useContext(AppContext);
+
     return (
-        <div className='content p-40'>
-            <div className='d-flex align-center mb-40 justify-between'>
-                <h1>Мои закладки!</h1>
-
+        <div className='content'>
+            <div className='favorites'>
+                <h1 className='text'>Мои закладки!</h1>
             </div>
 
-            <div className="d-flex box">
+            <div className="box">
                 {
-                    items.map((item, index) =>
+                    favorites.map((item, index) =>
                         (<Card
                             key={index}
-                            favorited={true}
-                            onFavorite={onAddToFavorite}
+                            onFavorite={(obj) => onAddToFavorite(obj)}
+                            onPlus={(obj) => onAddToCart(obj)}
                             {...item}
                         />))
                 }

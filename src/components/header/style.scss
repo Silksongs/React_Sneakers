@@ -1,0 +1,32 @@
+.header{
+  border-bottom: 1px solid #eaeaea;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding:40px !important;
+
+  .headerImg {
+    margin-right: 15px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+
+    .label{
+      margin: 0;
+      text-transform:uppercase;
+    }
+    .point{
+      margin: 0;
+      opacity:.5;
+    }
+  }
+  .headerEnd{
+    display:flex;
+
+    .list{
+      margin-right:30px !important;
+      cursor:pointer;
+    }
+  }
+}

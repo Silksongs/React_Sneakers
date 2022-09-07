@@ -6,7 +6,7 @@
   margin: 20px 30px 0 0;
   transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
 
-  .plus{
+  .plus {
     cursor: pointer;
   }
 
@@ -23,17 +23,29 @@
     cursor: pointer;
   }
 
-  span {
-    font-size: 13px;
-    opacity: 0.5;
-    text-transform: uppercase;
+  .cardBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cardPrice {
+      display: flex;
+      flex-direction: column;
+
+      .cardSpan {
+        font-size: 13px;
+        opacity: 0.5;
+        text-transform: uppercase;
+      }
+
+      .cardText {
+        font-size: 14px;
+      }
+
+    }
   }
 
-  b {
-    font-size: 14px;
-  }
-
-  h5 {
+  .cardTitleText {
     font-weight: 400;
     font-size: 14px;
   }

@@ -1,31 +1,53 @@
 import React from 'react';
 import Card from "../../components/card";
 import './style.scss';
+import AppContext from "../../components/contextx";
 
-function Home({items, searchValue, setSearchValue, onChangeSearchInput, onAddToFavorite, onAddToCart}) {
+import search from '../../assets/search.svg'
+import btnRemove from '../../assets/btn-remove.svg'
+
+function Home({}) {
+
+    const {
+        items,
+        searchValue,
+        setSearchValue,
+        onChangeSearchInput,
+        onAddToFavorite,
+        onAddToCart,
+        isLoading
+    } = React.useContext(AppContext);
+
+    const renderItems = () => {
+        const filtredItems = items.filter(item =>
+            item.title.toLowerCase().includes(searchValue.toLowerCase()));
+        return (isLoading ? [...Array(10)] : filtredItems).map((item, index) => (
+                <Card
+                    key={index}
+                    onFavorite={(obj) => onAddToFavorite(obj)}
+                    onPlus={(obj) => onAddToCart(obj)}
+                    loading={isLoading}
+                    {...item}
+                />
+            )
+        )
+    }
+
     return (
-        <div className='content p-40'>
-            <div className='d-flex align-center mb-40 justify-between'>
-                <h1 className=''>{searchValue ? `Поиск по запросу: ${searchValue}` : 'Все кроссовки'}</h1>
-                <div className='search-block d-flex'>
-                    <img src="/img/search.svg" alt="Search"/>
+        <div className='content'>
+            <div className='page'>
+                <h1 className='text'>{searchValue ? `Поиск по запросу: ${searchValue}` : 'Все кроссовки'}</h1>
+                <div className='search-block'>
+                    <img src={search} alt="Search"/>
                     {searchValue &&
-                        <img onClick={() => setSearchValue('')} className='clear cu-p' src="/img/btn-remove.svg"
+                        <img onClick={() => setSearchValue('')} className='clear' src={btnRemove}
                              alt="Clear"/>}
-                    <input onChange={onChangeSearchInput} value={searchValue} placeholder='Поиск...'/>
+                    <input className='headerInput' onChange={onChangeSearchInput} value={searchValue} placeholder='Поиск...'/>
                 </div>
             </div>
 
-            <div className="d-flex box">
-                {
-                    items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) =>
-                        (<Card
-                            key={index}
-                            onFavorite={(obj) => onAddToFavorite(obj)}
-                            onPlus={(obj) => onAddToCart(obj)}
-                            {...item}
-                        />))
-                }
+            <div className="box">
+                {renderItems()}
             </div>
         </div>
     );
